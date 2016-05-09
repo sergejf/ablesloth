@@ -18,20 +18,23 @@ $(document).ready(function () {
     }, {
             responsivePriority: 4,
             targets: 2
+    }],
+        buttons: [{
+            text: 'BUY',
+            action: function (e, dt, node, config) {
+                alert('Buy Ticker');
+            }
     }, {
-            responsivePriority: 6,
-            targets: 5,
-            "data": null,
-            "defaultContent": "<button>BUY</button>"
-    }, {
-            responsivePriority: 7,
-            targets: 6,
-            "data": null,
-            "defaultContent": "<button>SELL</button>"
+            text: 'SELL',
+            action: function (e, dt, node, config) {
+                alert('Sell Ticker');
+            }
     }]
     });
+
     var stocks = ['DFE', 'MORL', 'FV'];
     var stocksUrl = stocks.join('%20');
+
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22' + stocksUrl + '%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
 
     $.getJSON(url, function (data) {
@@ -42,7 +45,7 @@ $(document).ready(function () {
             var change = data.query.results.quote[i].ChangeinPercent;
             var price = data.query.results.quote[i].LastTradePriceOnly;
 
-            // TODO: set colors using DataTable
+            // TODO: color should be set for DataTable elements, not DOM
 
             if (change.slice(0, -1) < 0) {
                 $(stockChangeId).css('color', '#db5959');
