@@ -61,6 +61,13 @@ $(document).ready(function () {
         }
     });
 
+    var password = "username";
+    var salt = "password";
+    var plaintext = "$44.00"
+    var key = doPbkdf2(salt, password);
+    var ct = doEncrypt(salt, plaintext, key);
+    var pt = doDecrypt(JSON.parse(ct).ct, key);
+
 });
 
 // http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22%27MORL%27%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback
