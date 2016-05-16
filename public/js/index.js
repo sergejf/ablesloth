@@ -63,10 +63,24 @@ $(document).ready(function () {
 
     var password = "username";
     var salt = "password";
-    var plaintext = "$44.00"
-    var key = doPbkdf2(salt, password);
-    var ct = doEncrypt(salt, plaintext, key);
-    var pt = doDecrypt(JSON.parse(ct).ct, key);
+    var tx = Transaction();
+    tx.init(salt, password);
+    tx.plaintext = {
+        symbol: "MORL",
+        exchange: "",
+        portfolioID: "PF1",
+        txID: "TX1",
+        txType: "BUY",
+        txShareCount: 50,
+        txDate: "20160515",
+        txSharePrice: 52.12,
+        txCommission: 6.00,
+        txCurrency: "USD",
+        txBroker: "IB",
+        txNote: "VA investment"
+    };
+    tx.encrypt();
+    var txtxt = tx.decrypt();
 
 });
 
